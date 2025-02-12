@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para una persona muy especial</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Trebuchet MS, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1515871204537-49a5fe66a31f?q=80&w=1982&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    #container {
+      text-align: center;
+      padding: 20px;
+      background: rgba(100, 100, 100, 0.8); /* Fondo translúcido */
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 80%;
+      width: 600px;
+      z-index: 10;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: black;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #edab7c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #000000;
+    }
+
+    .gallery, .final-message {
+      display: none;
+    }
+
+    .gallery img {
+      width: 200px;
+      height: 150px;
+      margin: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    /* Animación de corazones */
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: red; /* Asegurar color sólido */
+  transform: rotate(-45deg);
+  animation: float 8s infinite ease-in-out;
+  filter: brightness(1); /* Evita cambios en tonos */
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgb(255, 0, 0); /* Unificar color */
+}
+
+.heart::before {
+  top: -10px;
+  left: 0;
+}
+
+.heart::after {
+  left: 10px;
+  top: 0;
+}
+
+
+    /* Variaciones de corazones */
+    .heart:nth-child(2n) {
+      background: rgb(255, 0, 0);
+    }
+
+    .heart:nth-child(3n) {
+      background: #ff0000;
+    }
+
+    /* Animación flotante */
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1);
+        opacity: 0;
+      }
+    }
+
+    /* Pie de página */
+    footer {
+      text-align: center;
+      padding: 10px;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      color: white;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Estilos para la imagen grande del lightbox */
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    /* Estilo para el texto en el lightbox */
+.lightbox-text {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo translúcido */
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  text-align: center;
+  display: none; /* Inicialmente oculto */
+}
+
+    /* Botón de cierre */
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    
+    
+
+  </style>
+</head>
+<body>
+  <head>
+    <style>
+      h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        color: white;
+        animation: tituloBrillo 2s infinite alternate;
+      }
+  
+      @keyframes tituloBrillo {
+        0% {
+          text-shadow: 0 0 5px #ffffff;
+          transform: scale(1);
+        }
+        100% {
+          text-shadow: 0 0 20px #ff66b2;
+          transform: scale(1.1);
+        }
+      }
+      button {
+  background: linear-gradient(45deg, #ff66b2, #ffcc00);
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 102, 178, 0.6);
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: latido 1.5s infinite;
+}
+
+/* Efecto de latido */
+@keyframes latido {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Efecto hover */
+button:hover {
+  transform: scale(1.2);
+  box-shadow: 0 6px 15px rgba(255, 102, 178, 0.8);
+}
+    </style>
+  </head>
+  <body>
+    
+  
+
+<div id="container">
+  <!-- Primera sección -->
+  <div id="welcome">
+    <h1>Para la chica más hermosa del universo, la dueña de mis sonrisas y de mi corazón</h1>
+    <button onclick="showGallery()">Ver recuerdos</button>
+    
+  </div>
+
+  <!-- Galería de fotos -->
+  <div id="gallery" class="gallery">
+    <h1>Nuestros momentos inolvidables.</h1>
+    <img src="Carpeta_imagenes/imagen1.jpg" alt="Foto 1" onclick="openLightbox(this)" data-description="Desde que llegaste a mi vida, cada día tiene más luz y más amor. Eres mi razón favorita para sonreír.">
+    <img src="Carpeta_imagenes/imagen2.jpg" alt="Foto 2" onclick="openLightbox(this)" data-description="Cada aventura contigo se convierte en una historia hermosa, porque todo es especial cuando estamos juntos.">
+    <img src="Carpeta_imagenes/imagen3.jpg" alt="Foto 3" onclick="openLightbox(this)" data-description="Tu sonrisa es mi lugar favorito en el mundo. No hay nada más hermoso que verte feliz.">
+    <img src="Carpeta_imagenes/imagen4.jpg" alt="Foto 4" onclick="openLightbox(this)" data-description="Gracias por cada momento, cada risa y cada abrazo. Contigo, todo tiene sentido.">
+    <img src="Carpeta_imagenes/imagen5.jpg" alt="Foto 5" onclick="openLightbox(this)" data-description="No importa el lugar ni el momento, lo mejor de mi vida siempre será estar contigo.">
+    <br>
+    <button onclick="showFinalMessage()">Finalizar</button>
+  </div>
+
+  <!-- Mensaje final -->
+  <div id="finalMessage" class="final-message">
+    <h1>Gracias por ser mi refugio, mi alegría y mi amor más puro. No sé qué hice para merecerte, pero prometo amarte cada día como si fuera el último. Eres lo mejor que me ha pasado.</h1>
+    <div class="hearts" id="heartsContainer"></div>
+    <!-- Contenedor del GIF -->
+<div id="gifContainer" style="display: none; text-align: center; margin-top: 20px;">
+  <img src="https://i.pinimg.com/originals/e1/f9/47/e1f94781a5c2fbf53fc719ec9e9e169a.gif" alt="Animación" style="width: 200px; height: auto;">
+</div>
+  </div>
+</div>
+
+<!-- Lightbox para ver imagen grande -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="close-btn">X</button>
+  <img id="lightboxImage" src="" alt="Imagen grande">
+  <div id="lightboxText" class="lightbox-text"></div>
+  
+</div>
+
+<!-- Pie de página -->
+<footer id="footer">
+  <p>Hecho con todo mi amor por Luis Cárdenas para la mujer más increíble de mi vida.</p>
+</footer>
+
+<script>
+  
+  function showGallery() {
+    document.getElementById('welcome').style.display = 'none';
+    document.getElementById('gallery').style.display = 'block';
+    document.getElementById('footer').style.display = 'none'; // Oculta el pie de página
+  }
+
+  function showFinalMessage() {
+    document.getElementById('gallery').style.display = 'none';
+    document.getElementById('finalMessage').style.display = 'block';
+    document.getElementById('footer').style.display = 'block'; // Muestra nuevamente el pie de página
+    document.getElementById('gifContainer').style.display = 'block'; // Muestra el GIF
+    generateHearts();
+  }
+
+  function generateHearts() {
+    const heartsContainer = document.getElementById('heartsContainer');
+    for (let i = 0; i < 100; i++) {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+      heart.style.transform = `scale(${Math.random() * 0.8 + 0.5})`;
+      heartsContainer.appendChild(heart);
+    }
+  }
+  function openLightbox(img) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImage = document.getElementById('lightboxImage');
+  const lightboxText = document.getElementById('lightboxText');
+  
+  lightboxImage.src = img.src; // Establece la imagen seleccionada en el lightbox
+  lightboxText.innerText = img.getAttribute('data-description'); // Muestra la descripción correspondiente
+  lightboxText.style.display = 'block'; // Muestra el texto
+  
+  lightbox.style.display = 'flex'; // Muestra el lightbox
+}
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.style.display = 'none'; // Cierra el lightbox cuando se hace clic fuera de la imagen
+  }
+  
+</script>
+
+</body>
+</html>
+
